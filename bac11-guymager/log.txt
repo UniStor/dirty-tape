@@ -1,0 +1,375 @@
+me@tape2004:~$ ~/bin/ltfs/mountTape 
+[sudo] password for me: 
+7c5 LTFS14000I LTFS starting, LTFS version 2.5.0.0 (Prelim), log level 2.
+7c5 LTFS14058I LTFS Format Specification version 2.4.0.
+7c5 LTFS14104I Launched by "ltfs -o devname=HUJ4260W3L /ltfs".
+7c5 LTFS14105I This binary is built for Linux (x86_64).
+7c5 LTFS14106I GCC version is 9.3.0.
+7c5 LTFS17087I Kernel version: Linux version 5.8.0-55-generic (buildd@lgw01-amd64-050) (gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0, GNU ld (GNU Binutils for Ubuntu) 2.34) #62~20.04.1-Ubuntu SMP Wed Jun 2 08:55:04 UTC 2021 i386.
+7c5 LTFS17089I Distribution: NAME="Ubuntu".
+7c5 LTFS17089I Distribution: DISTRIB_ID=Ubuntu.
+7c5 LTFS14063I Sync type is "time", Sync time is 300 sec.
+7c5 LTFS17085I Plugin: Loading "sg" tape backend.
+7c5 LTFS17085I Plugin: Loading "unified" iosched backend.
+7c5 LTFS14095I Set the tape device write-anywhere mode to avoid cartridge ejection.
+7c5 LTFS30209I Opening a device through sg-ibmtape driver (HUJ4260W3L).
+7c5 LTFS30288I Opening a tape device for drive serial HUJ4260W3L.
+7c5 LTFS30250I Opened the SCSI tape device 7.0.0.0 (/dev/sg2).
+7c5 LTFS30207I Vendor ID is HP      .
+7c5 LTFS30208I Product ID is Ultrium 6-SCSI  .
+7c5 LTFS30214I Firmware revision is J5KZ.
+7c5 LTFS30215I Drive serial is HUJ4260W3L.
+7c5 LTFS30205I TEST_UNIT_READY (0x00) returns -20601.
+7c5 LTFS30290I Changer /dev/sg2 isn't reserved from any nodes.
+7c5 LTFS30285I The reserved buffer size of HUJ4260W3L is 1048576.
+7c5 LTFS30294I Setting up timeout values from RSOC.
+7c5 LTFS17160I Maximum device block size is 1048576.
+7c5 LTFS11330I Loading cartridge.
+7c5 LTFS11332I Load successful.
+7c5 LTFS17157I Changing the drive setting to write-anywhere mode.
+7c5 LTFS11005I Mounting the volume.
+7c5 LTFS30205I MODESENSE (0x5a) returns -20501.
+7c5 LTFS30263I MODESENSE returns Invalid Field in CDB (-20501) /dev/sg2.
+7c5 LTFS17146E EOD of IP(0) is missing. A deep recovery operation is required.
+7c5 LTFS17148E Use ltfsck with the --deep-recovery option.
+7c5 LTFS14013E Cannot mount the volume.
+7c5 LTFS30205I MODESELECT (0x55) returns -20500.
+7c5 LTFS30263I MODESELECT returns Invalid Field in Parameter List (-20500) /dev/sg2.
+me@tape2004:~$ cat ~/bin/ltfs/mountTape 
+sudo ltfs -o devname=HUJ4260W3L /ltfs
+me@tape2004:~$ ltfsck
+LTFS16000I Starting ltfsck, LTFS version 2.5.0.0 (Prelim), log level 2.
+LTFS16088I Launched by "ltfsck".
+LTFS16089I This binary is built for Linux (x86_64).
+LTFS16090I GCC version is 9.3.0.
+LTFS17087I Kernel version: Linux version 5.8.0-55-generic (buildd@lgw01-amd64-050) (gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0, GNU ld (GNU Binutils for Ubuntu) 2.34) #62~20.04.1-Ubuntu SMP Wed Jun 2 08:55:04 UTC 2021 i386.
+LTFS17089I Distribution: NAME="Ubuntu".
+LTFS17089I Distribution: DISTRIB_ID=Ubuntu.
+LTFS16009E Must provide device name.
+LTFS16002E Option validation failed.
+Usage: ltfsck [options] filesys
+
+filesys                           Device file for the tape drive
+
+Available options are:
+  -g, --generation=<generation>   Specify the generation to roll back
+  -r, --rollback                  Roll back to the point specified by -g
+  -n, --no-rollback               Do not roll back. Verify the point specified by -g (default)
+  -f, --full-recovery             Recover extra data blocks into directory _ltfs_lostandfound
+  -z, --deep-recovery             Recover EOD missing cartridge.
+                                  Some blocks might be erased, but recover to final unmount point
+                                  with an index version of at least  2.0.0  or earlier.
+                                  (Must be used for a cartridge that cannot be recovered by a normal option.)
+  -l, --list-rollback-points      List rollback points
+  -m, --full-index-info           Display full index information (Effective only for -l option)
+  -v, --traverse=<strategy>       Set traverse mode for listing roll back points. Strategy should be forward or backward. (default: backward)
+  -j, --erase-history             Erase history at rollback
+  -k, --keep-history              Keep history at rollback (default)
+  -q, --quiet                     Suppress informational messages
+  -t, --trace                     Enable diagnostic output
+      --syslogtrace               Enable diagnostic output to stderr and syslog
+  -V, --version                   Version information
+  -h, --help                      This help
+  -p, --advanced-help             Full help, including advanced options
+
+me@tape2004:~$ ltfsck --deep-recovery
+LTFS16000I Starting ltfsck, LTFS version 2.5.0.0 (Prelim), log level 2.
+LTFS16088I Launched by "ltfsck --deep-recovery".
+LTFS16089I This binary is built for Linux (x86_64).
+LTFS16090I GCC version is 9.3.0.
+LTFS17087I Kernel version: Linux version 5.8.0-55-generic (buildd@lgw01-amd64-050) (gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0, GNU ld (GNU Binutils for Ubuntu) 2.34) #62~20.04.1-Ubuntu SMP Wed Jun 2 08:55:04 UTC 2021 i386.
+LTFS17089I Distribution: NAME="Ubuntu".
+LTFS17089I Distribution: DISTRIB_ID=Ubuntu.
+LTFS16009E Must provide device name.
+LTFS16002E Option validation failed.
+Usage: ltfsck [options] filesys
+
+filesys                           Device file for the tape drive
+
+Available options are:
+  -g, --generation=<generation>   Specify the generation to roll back
+  -r, --rollback                  Roll back to the point specified by -g
+  -n, --no-rollback               Do not roll back. Verify the point specified by -g (default)
+  -f, --full-recovery             Recover extra data blocks into directory _ltfs_lostandfound
+  -z, --deep-recovery             Recover EOD missing cartridge.
+                                  Some blocks might be erased, but recover to final unmount point
+                                  with an index version of at least  2.0.0  or earlier.
+                                  (Must be used for a cartridge that cannot be recovered by a normal option.)
+  -l, --list-rollback-points      List rollback points
+  -m, --full-index-info           Display full index information (Effective only for -l option)
+  -v, --traverse=<strategy>       Set traverse mode for listing roll back points. Strategy should be forward or backward. (default: backward)
+  -j, --erase-history             Erase history at rollback
+  -k, --keep-history              Keep history at rollback (default)
+  -q, --quiet                     Suppress informational messages
+  -t, --trace                     Enable diagnostic output
+      --syslogtrace               Enable diagnostic output to stderr and syslog
+  -V, --version                   Version information
+  -h, --help                      This help
+  -p, --advanced-help             Full help, including advanced options
+
+me@tape2004:~$ cat ~/bin/ltfs/mountTape 
+sudo ltfs -o devname=HUJ4260W3L /ltfs
+me@tape2004:~$ sudo ltfsck --deep-recovery HUJ4260W3L
+[sudo] password for me: 
+LTFS16000I Starting ltfsck, LTFS version 2.5.0.0 (Prelim), log level 2.
+LTFS16088I Launched by "ltfsck --deep-recovery HUJ4260W3L".
+LTFS16089I This binary is built for Linux (x86_64).
+LTFS16090I GCC version is 9.3.0.
+LTFS17087I Kernel version: Linux version 5.8.0-55-generic (buildd@lgw01-amd64-050) (gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0, GNU ld (GNU Binutils for Ubuntu) 2.34) #62~20.04.1-Ubuntu SMP Wed Jun 2 08:55:04 UTC 2021 i386.
+LTFS17089I Distribution: NAME="Ubuntu".
+LTFS17089I Distribution: DISTRIB_ID=Ubuntu.
+LTFS17085I Plugin: Loading "sg" tape backend.
+LTFS30209I Opening a device through sg-ibmtape driver (HUJ4260W3L).
+LTFS30288I Opening a tape device for drive serial HUJ4260W3L.
+LTFS30250I Opened the SCSI tape device 7.0.0.0 (/dev/sg2).
+LTFS30207I Vendor ID is HP      .
+LTFS30208I Product ID is Ultrium 6-SCSI  .
+LTFS30214I Firmware revision is J5KZ.
+LTFS30215I Drive serial is HUJ4260W3L.
+LTFS30290I Changer /dev/sg2 isn't reserved from any nodes.
+LTFS30285I The reserved buffer size of HUJ4260W3L is 1048576.
+LTFS30294I Setting up timeout values from RSOC.
+LTFS17160I Maximum device block size is 1048576.
+LTFS11330I Loading cartridge.
+LTFS11332I Load successful.
+LTFS17157I Changing the drive setting to write-anywhere mode.
+LTFS16014I Checking LTFS file system on 'HUJ4260W3L'.
+LTFS16023I LTFS volume information:.
+LTFS16024I Volser (bar code) :       .
+LTFS16025I Volume UUID     : baea69d6-21c2-4404-bad6-b9b672df4d2d.
+LTFS16026I Format time     : 2021-06-09 10:52:48.462122401 CDT.
+LTFS16027I Block size      : 524288.
+LTFS16028I Compression     : Enabled.
+LTFS16029I Index partition : ID = a, SCSI Partition = 0.
+LTFS16030I Data partition  : ID = b, SCSI Partition = 1.
+
+LTFS17161I EOD information (IP) is corrupted.
+LTFS17162I Trying a simple recovery that requires several minutes to complete.
+LTFS30205I LOCATE (0x92) returns -20301.
+LTFS30263I LOCATE returns Recorded Entity Not Found (-20301) /dev/sg2.
+LTFS12039E Cannot seek EOD: backend locate call failed (-20301).
+LTFS17267E Locate command returns write-perm error (-20301). Replace a return code to -1201.
+LTFS12022I Unloading medium.
+LTFS30205I TEST_UNIT_READY (0x00) returns -20209.
+LTFS30205I TEST_UNIT_READY (0x00) returns -20209.
+LTFS30205I TEST_UNIT_READY (0x00) returns -20209.
+LTFS17139I Starting a deep recovery operation: missing EOD.
+LTFS17143I EOD of IP(0) is missing.
+LTFS17111I The MAM was written by PGA2 or later.
+LTFS17113I Starting EOD recovery: reading an index from (0, 4).
+LTFS17127I Detecting the final record to read by hitting read error takes about 20 minutes.
+LTFS30205I READ (0x08) returns -20301.
+LTFS30263I READ returns Recorded Entity Not Found (-20301) /dev/sg2.
+LTFS12049E Cannot read: backend call failed (-20301).
+LTFS17129W Unexpected read error occurred.
+LTFS17131I Recovering EOD at (0, 7) takes about 20 minutes.
+LTFS12022I Unloading medium.
+LTFS30205I TEST_UNIT_READY (0x00) returns -20209.
+LTFS30205I TEST_UNIT_READY (0x00) returns -20209.
+LTFS30205I TEST_UNIT_READY (0x00) returns -20209.
+LTFS30205I LOCATE (0x92) returns -20301.
+LTFS30263I LOCATE returns Recorded Entity Not Found (-20301) /dev/sg2.
+LTFS12037E Cannot seek: backend call failed (-20301).
+LTFS17267E Locate command returns write-perm error (-20301). Replace a return code to -1201.
+LTFS17135E Failed to seek to EOD recovery point.
+LTFS17137E Failed to recover EOD status (-1201).
+LTFS16091E Cannot recover missing EOD (-1201).
+LTFS30205I MODESELECT (0x55) returns -20500.
+LTFS30263I MODESELECT returns Invalid Field in Parameter List (-20500) /dev/sg2.
+me@tape2004:~$ ~/bin/ltfs/mountTape 
+cad LTFS14000I LTFS starting, LTFS version 2.5.0.0 (Prelim), log level 2.
+cad LTFS14058I LTFS Format Specification version 2.4.0.
+cad LTFS14104I Launched by "ltfs -o devname=HUJ4260W3L /ltfs".
+cad LTFS14105I This binary is built for Linux (x86_64).
+cad LTFS14106I GCC version is 9.3.0.
+cad LTFS17087I Kernel version: Linux version 5.8.0-55-generic (buildd@lgw01-amd64-050) (gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0, GNU ld (GNU Binutils for Ubuntu) 2.34) #62~20.04.1-Ubuntu SMP Wed Jun 2 08:55:04 UTC 2021 i386.
+cad LTFS17089I Distribution: NAME="Ubuntu".
+cad LTFS17089I Distribution: DISTRIB_ID=Ubuntu.
+cad LTFS14063I Sync type is "time", Sync time is 300 sec.
+cad LTFS17085I Plugin: Loading "sg" tape backend.
+cad LTFS17085I Plugin: Loading "unified" iosched backend.
+cad LTFS14095I Set the tape device write-anywhere mode to avoid cartridge ejection.
+cad LTFS30209I Opening a device through sg-ibmtape driver (HUJ4260W3L).
+cad LTFS30288I Opening a tape device for drive serial HUJ4260W3L.
+cad LTFS30250I Opened the SCSI tape device 7.0.0.0 (/dev/sg2).
+cad LTFS30207I Vendor ID is HP      .
+cad LTFS30208I Product ID is Ultrium 6-SCSI  .
+cad LTFS30214I Firmware revision is J5KZ.
+cad LTFS30215I Drive serial is HUJ4260W3L.
+cad LTFS30290I Changer /dev/sg2 isn't reserved from any nodes.
+cad LTFS30285I The reserved buffer size of HUJ4260W3L is 1048576.
+cad LTFS30294I Setting up timeout values from RSOC.
+cad LTFS17160I Maximum device block size is 1048576.
+cad LTFS11330I Loading cartridge.
+cad LTFS11332I Load successful.
+cad LTFS17157I Changing the drive setting to write-anywhere mode.
+cad LTFS11005I Mounting the volume.
+cad LTFS30205I MODESENSE (0x5a) returns -20501.
+cad LTFS30263I MODESENSE returns Invalid Field in CDB (-20501) /dev/sg2.
+cad LTFS17146E EOD of IP(0) is missing. A deep recovery operation is required.
+cad LTFS17148E Use ltfsck with the --deep-recovery option.
+cad LTFS14013E Cannot mount the volume.
+cad LTFS30205I MODESELECT (0x55) returns -20500.
+cad LTFS30263I MODESELECT returns Invalid Field in Parameter List (-20500) /dev/sg2.
+me@tape2004:~$ ls
+bin  Desktop  Documents  Downloads  Music  Pictures  Public  snap  src  Templates  Videos
+me@tape2004:~$ sudo ltfsck --deep-recovery --syslogtrace HUJ4260W3L
+LTFS16000I Starting ltfsck, LTFS version 2.5.0.0 (Prelim), log level 3.
+LTFS16088I Launched by "ltfsck --deep-recovery --syslogtrace HUJ4260W3L".
+LTFS16089I This binary is built for Linux (x86_64).
+LTFS16090I GCC version is 9.3.0.
+LTFS17087I Kernel version: Linux version 5.8.0-55-generic (buildd@lgw01-amd64-050) (gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0, GNU ld (GNU Binutils for Ubuntu) 2.34) #62~20.04.1-Ubuntu SMP Wed Jun 2 08:55:04 UTC 2021 i386.
+LTFS17089I Distribution: NAME="Ubuntu".
+LTFS17089I Distribution: DISTRIB_ID=Ubuntu.
+LTFS17085I Plugin: Loading "sg" tape backend.
+LTFS30209I Opening a device through sg-ibmtape driver (HUJ4260W3L).
+LTFS30288I Opening a tape device for drive serial HUJ4260W3L.
+LTFS30250I Opened the SCSI tape device 7.0.0.0 (/dev/sg2).
+LTFS30207I Vendor ID is HP      .
+LTFS30208I Product ID is Ultrium 6-SCSI  .
+LTFS30214I Firmware revision is J5KZ.
+LTFS30215I Drive serial is HUJ4260W3L.
+LTFS30290I Changer /dev/sg2 isn't reserved from any nodes.
+LTFS30285I The reserved buffer size of HUJ4260W3L is 1048576.
+LTFS30294I Setting up timeout values from RSOC.
+LTFS12023D Reserving device.
+LTFS30392D Backend reserve (PRO) HUJ4260W3L.
+LTFS12028D Unlocking medium.
+LTFS30392D Backend allow medium removal HUJ4260W3L.
+LTFS30392D Backend read block limits HUJ4260W3L.
+LTFS17160I Maximum device block size is 1048576.
+LTFS11330I Loading cartridge.
+LTFS30392D Backend load HUJ4260W3L.
+LTFS30398D Backend readpos: (0, 0) FM = 0 HUJ4260W3L.
+LTFS12026D Locking medium in the drive.
+LTFS30392D Backend prevent medium removal HUJ4260W3L.
+LTFS30398D Backend readpos: (0, 0) FM = 0 HUJ4260W3L.
+LTFS30392D Backend read block limits HUJ4260W3L.
+LTFS11332I Load successful.
+LTFS17157I Changing the drive setting to write-anywhere mode.
+LTFS16014I Checking LTFS file system on 'HUJ4260W3L'.
+LTFS11012D Loading the tape.
+LTFS30392D Backend load HUJ4260W3L.
+LTFS30398D Backend readpos: (0, 0) FM = 0 HUJ4260W3L.
+LTFS30398D Backend readpos: (0, 0) FM = 0 HUJ4260W3L.
+LTFS30392D Backend read block limits HUJ4260W3L.
+LTFS30397D Backend locate: (0, 0) HUJ4260W3L.
+LTFS30398D Backend readpos: (0, 0) FM = 0 HUJ4260W3L.
+LTFS11007D Tape is loaded.
+LTFS11008D Reading partition labels.
+LTFS30392D Backend read block limits HUJ4260W3L.
+LTFS30397D Backend locate: (0, 0) HUJ4260W3L.
+LTFS30398D Backend readpos: (0, 0) FM = 0 HUJ4260W3L.
+LTFS30201D CDB check condition: sense = 000001, Filemark Detected.
+LTFS30204D READ (0x08) expected error -20004.
+LTFS30219D Read block: file mark detected.
+LTFS30201D CDB check condition: sense = 000001, Filemark Detected.
+LTFS30204D READ (0x08) expected error -20004.
+LTFS30219D Read block: file mark detected.
+LTFS30392D Backend read block limits HUJ4260W3L.
+LTFS30397D Backend locate: (1, 0) HUJ4260W3L.
+LTFS30398D Backend readpos: (1, 0) FM = 0 HUJ4260W3L.
+LTFS30201D CDB check condition: sense = 000001, Filemark Detected.
+LTFS30204D READ (0x08) expected error -20004.
+LTFS30219D Read block: file mark detected.
+LTFS30201D CDB check condition: sense = 000001, Filemark Detected.
+LTFS30204D READ (0x08) expected error -20004.
+LTFS30219D Read block: file mark detected.
+LTFS30392D Backend read block limits HUJ4260W3L.
+LTFS16023I LTFS volume information:.
+LTFS16024I Volser (bar code) :       .
+LTFS16025I Volume UUID     : baea69d6-21c2-4404-bad6-b9b672df4d2d.
+LTFS16026I Format time     : 2021-06-09 10:52:48.462122401 CDT.
+LTFS16027I Block size      : 524288.
+LTFS16028I Compression     : Enabled.
+LTFS16029I Index partition : ID = a, SCSI Partition = 0.
+LTFS16030I Data partition  : ID = b, SCSI Partition = 1.
+
+LTFS11339D Read volume lock status (0).
+LTFS17161I EOD information (IP) is corrupted.
+LTFS17162I Trying a simple recovery that requires several minutes to complete.
+LTFS30397D Backend locate: (0, 18446744073709551615) HUJ4260W3L.
+LTFS30201D CDB check condition: sense = 031400, Recorded Entity Not Found.
+LTFS30205I LOCATE (0x92) returns -20301.
+LTFS30263I LOCATE returns Recorded Entity Not Found (-20301) /dev/sg2.
+LTFS30398D Backend readpos: (0, 0) FM = 0 HUJ4260W3L.
+LTFS12039E Cannot seek EOD: backend locate call failed (-20301).
+LTFS17267E Locate command returns write-perm error (-20301). Replace a return code to -1201.
+LTFS12022I Unloading medium.
+LTFS12028D Unlocking medium.
+LTFS30392D Backend allow medium removal HUJ4260W3L.
+LTFS30397D Backend rewind: (0, 0) HUJ4260W3L.
+LTFS30398D Backend readpos: (0, 0) FM = 0 HUJ4260W3L.
+LTFS30392D Backend unload HUJ4260W3L.
+LTFS30201D CDB check condition: sense = 023a00, Medium Not Present.
+LTFS30205I TEST_UNIT_READY (0x00) returns -20209.
+LTFS30201D CDB check condition: sense = 023a00, Medium Not Present.
+LTFS30205I TEST_UNIT_READY (0x00) returns -20209.
+LTFS30201D CDB check condition: sense = 023a00, Medium Not Present.
+LTFS30205I TEST_UNIT_READY (0x00) returns -20209.
+LTFS30392D Backend load HUJ4260W3L.
+LTFS30398D Backend readpos: (0, 0) FM = 0 HUJ4260W3L.
+LTFS12026D Locking medium in the drive.
+LTFS30392D Backend prevent medium removal HUJ4260W3L.
+LTFS30398D Backend readpos: (0, 0) FM = 0 HUJ4260W3L.
+LTFS30392D Backend read block limits HUJ4260W3L.
+LTFS17139I Starting a deep recovery operation: missing EOD.
+LTFS17143I EOD of IP(0) is missing.
+LTFS17111I The MAM was written by PGA2 or later.
+LTFS17113I Starting EOD recovery: reading an index from (0, 4).
+LTFS30397D Backend locate: (0, 4) HUJ4260W3L.
+LTFS30398D Backend readpos: (0, 4) FM = 2 HUJ4260W3L.
+LTFS30392D Backend read block limits HUJ4260W3L.
+LTFS17127I Detecting the final record to read by hitting read error takes about 20 minutes.
+LTFS30201D CDB check condition: sense = 000001, Filemark Detected.
+LTFS30204D READ (0x08) expected error -20004.
+LTFS30219D Read block: file mark detected.
+LTFS30201D CDB check condition: sense = 000001, Filemark Detected.
+LTFS30204D READ (0x08) expected error -20004.
+LTFS30219D Read block: file mark detected.
+LTFS30201D CDB check condition: sense = 031400, Recorded Entity Not Found.
+LTFS30205I READ (0x08) returns -20301.
+LTFS30263I READ returns Recorded Entity Not Found (-20301) /dev/sg2.
+LTFS12049E Cannot read: backend call failed (-20301).
+LTFS17129W Unexpected read error occurred.
+LTFS30398D Backend readpos: (0, 7) FM = 4 HUJ4260W3L.
+LTFS17131I Recovering EOD at (0, 7) takes about 20 minutes.
+LTFS12022I Unloading medium.
+LTFS12028D Unlocking medium.
+LTFS30392D Backend allow medium removal HUJ4260W3L.
+LTFS30397D Backend rewind: (0, 0) HUJ4260W3L.
+LTFS30398D Backend readpos: (0, 0) FM = 0 HUJ4260W3L.
+LTFS30392D Backend unload HUJ4260W3L.
+LTFS30201D CDB check condition: sense = 023a00, Medium Not Present.
+LTFS30205I TEST_UNIT_READY (0x00) returns -20209.
+LTFS30201D CDB check condition: sense = 023a00, Medium Not Present.
+LTFS30205I TEST_UNIT_READY (0x00) returns -20209.
+LTFS30201D CDB check condition: sense = 023a00, Medium Not Present.
+LTFS30205I TEST_UNIT_READY (0x00) returns -20209.
+LTFS30392D Backend load HUJ4260W3L.
+LTFS30398D Backend readpos: (0, 0) FM = 0 HUJ4260W3L.
+LTFS12026D Locking medium in the drive.
+LTFS30392D Backend prevent medium removal HUJ4260W3L.
+LTFS30398D Backend readpos: (0, 0) FM = 0 HUJ4260W3L.
+LTFS30392D Backend read block limits HUJ4260W3L.
+LTFS30397D Backend locate: (0, 7) HUJ4260W3L.
+LTFS30201D CDB check condition: sense = 031400, Recorded Entity Not Found.
+LTFS30205I LOCATE (0x92) returns -20301.
+LTFS30263I LOCATE returns Recorded Entity Not Found (-20301) /dev/sg2.
+LTFS30398D Backend readpos: (0, 0) FM = 0 HUJ4260W3L.
+LTFS12037E Cannot seek: backend call failed (-20301).
+LTFS17267E Locate command returns write-perm error (-20301). Replace a return code to -1201.
+LTFS17135E Failed to seek to EOD recovery point.
+LTFS17137E Failed to recover EOD status (-1201).
+LTFS16091E Cannot recover missing EOD (-1201).
+LTFS12028D Unlocking medium.
+LTFS30392D Backend allow medium removal HUJ4260W3L.
+LTFS12025D Releasing device.
+LTFS30392D Backend release (PRO) HUJ4260W3L.
+LTFS30393D Backend LBP Enable: 0 .
+LTFS30393D Backend LBP Method: 1 .
+LTFS30201D CDB check condition: sense = 052600, Invalid Field in Parameter List.
+LTFS30205I MODESELECT (0x55) returns -20500.
+LTFS30263I MODESELECT returns Invalid Field in Parameter List (-20500) /dev/sg2.
+me@tape2004:~$ ~/bin/ltfs/ejectTape 
+umount: /ltfs: not mounted.
